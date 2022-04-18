@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.hellking.moviex.presentation.components.NavigationRoutes
+import com.hellking.moviex.presentation.components.ScaffoldCompose
 import com.hellking.moviex.presentation.viewModels.MoviezViewModel
 import com.hellking.moviex.utils.Resource
 
@@ -37,28 +38,37 @@ fun HomeScreen(
     }
 }
 
+//@Composable
+//fun HomeScreenSuccess(
+//    navController: NavHostController,
+//    moviezViewModel: MoviezViewModel
+//) {
+//    val movieList = moviezViewModel.movieListState.value.data
+//    LazyColumn() {
+//        movieList?.forEach { movies ->
+//            item {
+//                Text(
+//                    text = movies.titleEng,
+//                    modifier = Modifier.clickable {
+//                        navController.navigate(
+//                            NavigationRoutes.Detail.passNameAndUrl(movies.titleEng, movies.url)
+//                        ) {
+//                            popUpTo(route = NavigationRoutes.Home.route)
+//                            launchSingleTop = true
+//                        }
+//                    }
+//                )
+//                Spacer(modifier = Modifier.height(10.dp))
+//            }
+//        }
+//    }
+//}
+
 @Composable
 fun HomeScreenSuccess(
     navController: NavHostController,
     moviezViewModel: MoviezViewModel
 ) {
     val movieList = moviezViewModel.movieListState.value.data
-    LazyColumn() {
-        movieList?.forEach { movies ->
-            item {
-                Text(
-                    text = movies.titleEng,
-                    modifier = Modifier.clickable {
-                        navController.navigate(
-                            NavigationRoutes.Detail.passNameAndUrl(movies.titleEng, movies.url)
-                        ) {
-                            popUpTo(route = NavigationRoutes.Home.route)
-                            launchSingleTop = true
-                        }
-                    }
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-            }
-        }
-    }
+    ScaffoldCompose()
 }
