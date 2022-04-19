@@ -21,7 +21,7 @@ fun TopBar() {
             text = "MovieX",
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
-            fontSize = 40.sp
+            fontSize = 36.sp
         )
     }
 }

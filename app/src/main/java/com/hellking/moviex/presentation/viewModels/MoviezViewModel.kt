@@ -16,10 +16,15 @@ import javax.inject.Inject
 class MoviezViewModel @Inject constructor(
     private val ytsRepo: YtsRepo
 ) : ViewModel() {
-    val movieListState: MutableState<Resource<List<MovieListUser>>> = mutableStateOf(Resource.Empty())
-    val movieDetailState: MutableState<Resource<MovieDetailUser>> = mutableStateOf(Resource.Empty())
+    // old states
+    // val movieListState: MutableState<Resource<List<MovieListUser>>> = mutableStateOf(Resource.Empty())
 
-    /*
+    val movieDetailState: MutableState<Resource<MovieDetailUser>> = mutableStateOf(Resource.Empty())
+    val latestMoviesState: MutableState<Resource<List<MovieListUser>>> = mutableStateOf(Resource.Empty())
+    val popularMoviesState: MutableState<Resource<List<MovieListUser>>> = mutableStateOf(Resource.Empty())
+    val likedMoviesState: MutableState<Resource<List<MovieListUser>>> = mutableStateOf(Resource.Empty())
+
+    /* old functions
     fun getMovies(page: Int = 1) {
         movieListState.value = Resource.Loading()
         viewModelScope.launch {
@@ -37,23 +42,23 @@ class MoviezViewModel @Inject constructor(
     */
 
     fun getLatestMovies() {
-        movieListState.value = Resource.Loading()
+        latestMoviesState.value = Resource.Loading()
         viewModelScope.launch {
-            movieListState.value = ytsRepo.latestMovies()
+            latestMoviesState.value = ytsRepo.latestMovies()
         }
     }
 
     fun getPopularMovies() {
-        movieListState.value = Resource.Loading()
+        popularMoviesState.value = Resource.Loading()
         viewModelScope.launch {
-            movieListState.value = ytsRepo.popularMovies()
+            popularMoviesState.value = ytsRepo.popularMovies()
         }
     }
 
     fun getMostLikedMovies() {
-        movieListState.value = Resource.Loading()
+        likedMoviesState.value = Resource.Loading()
         viewModelScope.launch {
-            movieListState.value = ytsRepo.mostLikedMovies()
+            likedMoviesState.value = ytsRepo.mostLikedMovies()
         }
     }
 
