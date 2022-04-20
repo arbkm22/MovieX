@@ -32,7 +32,6 @@ class MoviezViewModel @Inject constructor(
         }
     }
 
-
     fun getMovieDetail(id: Int) {
         movieDetailState.value = Resource.Loading()
         viewModelScope.launch {

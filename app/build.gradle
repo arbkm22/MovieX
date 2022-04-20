@@ -66,16 +66,13 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     def retrofit_version = "2.9.0"
-    def hilt_lifecycle = "1.0.0"
-    def hilt_version = "2.38.1"
-    def activity_version = "1.4.0"
-
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
     implementation 'com.google.code.gson:gson:2.8.7'
 
-
+    def hilt_lifecycle = "1.0.0"
+    def hilt_version = "2.38.1"
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     kapt "androidx.hilt:hilt-compiler:$hilt_lifecycle"
@@ -83,5 +80,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-beta01'
 
+    def activity_version = "1.4.0"
     implementation("androidx.activity:activity-ktx:$activity_version")
+
+    def glide = "4.13.0"
+    implementation "com.github.bumptech.glide:glide:$glide"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide"
 }
