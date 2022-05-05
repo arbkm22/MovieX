@@ -57,6 +57,7 @@ fun ContentLayer(
             latestMovies?.forEach { movies ->
                 item{
                     MovieCard(
+                        navController = navController,
                         title = movies.titleEng,
                         url = movies.url,
                         year = movies.year,
@@ -96,6 +97,7 @@ fun ContentLayer(
             popularMovies?.forEach { movies ->
                 item{
                     MovieCard(
+                        navController = navController,
                         title = movies.titleEng,
                         url = movies.url,
                         year = movies.year,
@@ -135,6 +137,7 @@ fun ContentLayer(
             likedMovies?.forEach { movies ->
                 item{
                     MovieCard(
+                        navController = navController,
                         title = movies.titleEng,
                         url = movies.url,
                         year = movies.year,

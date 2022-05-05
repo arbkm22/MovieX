@@ -6,16 +6,20 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import coil.annotation.ExperimentalCoilApi
 import com.hellking.moviex.presentation.components.NavigationRoutes
 import com.hellking.moviex.presentation.components.ScaffoldCompose
 import com.hellking.moviex.presentation.viewModels.MoviezViewModel
 import com.hellking.moviex.utils.Resource
 
+@ExperimentalCoilApi
+@ExperimentalMaterialApi
 @Composable
 fun HomeScreen(
     navController: NavHostController,
@@ -136,6 +140,8 @@ fun HomeScreen(
 //    }
 //}
 
+@ExperimentalCoilApi
+@ExperimentalMaterialApi
 @Composable
 fun HomeScreenSuccess(
     navController: NavHostController,

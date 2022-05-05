@@ -13,20 +13,30 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
+import com.hellking.moviex.presentation.viewModels.MoviezViewModel
 
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
 fun MovieCard(
+    navController: NavController,
     title: String,
     url: String,
     year: Int,
     mci: String
 ) {
     Card(
-        onClick = { /*TODO*/ },
+        onClick = {
+            navController.navigate(
+                NavigationRoutes.Detail.passNameAndUrl(title, url)
+            ) {
+                popUpTo(route = NavigationRoutes.Home.route)
+                launchSingleTop = true
+            }
+        },
         modifier = Modifier
             .width(200.dp)
             .height(400.dp)
@@ -62,7 +72,7 @@ fun MovieCard(
 
     }
 }
-
+/*
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Preview
@@ -74,3 +84,4 @@ fun Prev2() {
         2022,
         "https://img.yts.mx/assets/images/movies/spider_man_no_way_home_2021/medium-cover.jpg")
 }
+*/
