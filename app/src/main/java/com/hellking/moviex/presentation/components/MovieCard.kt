@@ -38,8 +38,7 @@ fun MovieCard(
             }
         },
         modifier = Modifier
-            .width(200.dp)
-            .height(400.dp)
+            .width(180.dp)
     ) {
         val painter = rememberImagePainter(
             data = mci,
@@ -50,7 +49,7 @@ fun MovieCard(
         Image(
             painter = painter,
             contentDescription = "image"
-        )
+        ) /*
         Column(
             modifier = Modifier
                 .fillMaxWidth(1f)
@@ -69,7 +68,7 @@ fun MovieCard(
                 fontSize = 9.sp
             )
         }
-
+           */
     }
 }
 /*

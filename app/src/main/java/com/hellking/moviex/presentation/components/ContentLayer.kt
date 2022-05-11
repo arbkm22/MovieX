@@ -1,5 +1,7 @@
 package com.hellking.moviex.presentation.components
 
+import androidx.annotation.Dimension
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
+import com.hellking.moviex.domain.models.MovieListUser
 import com.hellking.moviex.presentation.viewModels.MoviezViewModel
 
 @ExperimentalCoilApi
@@ -48,9 +51,18 @@ fun ContentLayer(
     val latestMovies = moviezViewModel.latestMoviesState.value.data
     val popularMovies = moviezViewModel.popularMoviesState.value.data
     val likedMovies = moviezViewModel.likedMoviesState.value.data
-    Column {
+    Column(
+        verticalArrangement = Arrangement.SpaceEvenly,
+        modifier = Modifier.background(Color.Black)
+    ) {
         // Latest Movies
+        MovieSection(navController = navController, movieList = latestMovies!!, sectionTitle = "Latest Movies")
+        MovieSection(navController = navController, movieList = popularMovies!!, sectionTitle = "Popular Movies")
+        MovieSection(navController = navController, movieList = likedMovies!!, sectionTitle = "Liked Movies")
+        /*
         TitleStrip(name = "Latest Movies")
+        MovieRow(navController = navController, movieList = latestMovies!!) */
+        /* The future is now old man
         LazyRow(
             modifier = Modifier.height(280.dp)
         ) {
@@ -65,7 +77,7 @@ fun ContentLayer(
                     )
                 }
             }
-        } /*
+        }
         LazyColumn(
             modifier = Modifier.height(280.dp)
         ) {
@@ -90,22 +102,9 @@ fun ContentLayer(
             }
         } */
         // Popular Movies
+        /*
         TitleStrip(name = "Popular Movies")
-        LazyRow(
-            modifier = Modifier.height(280.dp)
-        ) {
-            popularMovies?.forEach { movies ->
-                item{
-                    MovieCard(
-                        navController = navController,
-                        title = movies.titleEng,
-                        url = movies.url,
-                        year = movies.year,
-                        mci = movies.mediumCoverImage
-                    )
-                }
-            }
-        } /*
+        MovieRow(navController = navController, movieList = popularMovies!!) /*
         LazyColumn(
             modifier = Modifier.height(280.dp)
         ) {
@@ -131,21 +130,8 @@ fun ContentLayer(
         } */
         // Liked Movies
         TitleStrip(name = "Most Liked")
-        LazyRow(
-            modifier = Modifier.height(280.dp)
-        ) {
-            likedMovies?.forEach { movies ->
-                item{
-                    MovieCard(
-                        navController = navController,
-                        title = movies.titleEng,
-                        url = movies.url,
-                        year = movies.year,
-                        mci = movies.mediumCoverImage
-                    )
-                }
-            }
-        } /*
+        MovieRow(navController = navController, movieList = likedMovies!!)
+        /*
         LazyColumn(
             modifier = Modifier.height(280.dp)
         ) {
@@ -168,12 +154,15 @@ fun ContentLayer(
                     Spacer(modifier = Modifier.height(8.dp))
                 }
             }
-        } */
+        } */ */
     }
 }
 
 @Composable
-fun TitleStrip(name: String) {
+fun TitleStrip(
+    name: String,
+    modifier: Modifier
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -189,8 +178,55 @@ fun TitleStrip(name: String) {
     }
 }
 
+@ExperimentalCoilApi
+@ExperimentalMaterialApi
+@Composable
+fun MovieRow(
+    navController: NavController,
+    movieList: List<MovieListUser>
+) {
+    LazyRow(
+        modifier = Modifier
+            .background(Color.Black)
+    ) {
+        movieList.forEach() { movie ->
+            item {
+                MovieCard(
+                    navController = navController,
+                    title = movie.titleEng,
+                    url = movie.url,
+                    year = movie.year,
+                    mci = movie.mediumCoverImage
+                )
+            }
+        }
+    }
+}
+
+@ExperimentalCoilApi
+@ExperimentalMaterialApi
+@Composable
+fun MovieSection(
+    navController: NavController,
+    movieList: List<MovieListUser>,
+    sectionTitle: String
+) {
+    Column {
+        TitleStrip(
+            name = sectionTitle,
+            modifier = Modifier
+                .weight(0.1f)
+        )
+        MovieRow(
+            navController = navController,
+            movieList = movieList
+        )
+    }
+
+}
+
 @Preview
 @Composable
 fun Prev() {
-    TitleStrip(name = "Liked")
+
 }
