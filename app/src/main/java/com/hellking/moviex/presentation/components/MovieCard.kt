@@ -41,8 +41,7 @@ fun MovieCard(
         modifier = Modifier
             .width(175.dp)
             .height(260.dp),
-        elevation = 12.dp,
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(11.dp)
     ) {
         val painter = rememberImagePainter(
             data = mci,
