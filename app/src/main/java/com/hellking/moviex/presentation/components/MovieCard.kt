@@ -2,6 +2,7 @@ package com.hellking.moviex.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
@@ -38,7 +39,10 @@ fun MovieCard(
             }
         },
         modifier = Modifier
-            .width(180.dp)
+            .width(175.dp)
+            .height(260.dp),
+        elevation = 12.dp,
+        shape = RoundedCornerShape(8.dp)
     ) {
         val painter = rememberImagePainter(
             data = mci,

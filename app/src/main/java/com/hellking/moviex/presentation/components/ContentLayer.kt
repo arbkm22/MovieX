@@ -1,5 +1,6 @@
 package com.hellking.moviex.presentation.components
 
+import android.view.Surface
 import androidx.annotation.Dimension
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -58,7 +60,7 @@ fun ContentLayer(
         // Latest Movies
         MovieSection(navController = navController, movieList = latestMovies!!, sectionTitle = "Latest Movies")
         MovieSection(navController = navController, movieList = popularMovies!!, sectionTitle = "Popular Movies")
-        MovieSection(navController = navController, movieList = likedMovies!!, sectionTitle = "Liked Movies")
+        MovieSection(navController = navController, movieList = likedMovies!!, sectionTitle = "Most Liked Movies")
         /*
         TitleStrip(name = "Latest Movies")
         MovieRow(navController = navController, movieList = latestMovies!!) */
@@ -161,7 +163,6 @@ fun ContentLayer(
 @Composable
 fun TitleStrip(
     name: String,
-    modifier: Modifier
 ) {
     Box(
         modifier = Modifier
@@ -187,7 +188,9 @@ fun MovieRow(
 ) {
     LazyRow(
         modifier = Modifier
-            .background(Color.Black)
+            .background(Color.Black),
+        contentPadding = PaddingValues(horizontal = 8.dp),
+        horizontalArrangement = Arrangement.spacedBy(18.dp)
     ) {
         movieList.forEach() { movie ->
             item {
@@ -211,16 +214,27 @@ fun MovieSection(
     movieList: List<MovieListUser>,
     sectionTitle: String
 ) {
-    Column {
-        TitleStrip(
-            name = sectionTitle,
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Surface(
             modifier = Modifier
-                .weight(0.1f)
-        )
-        MovieRow(
-            navController = navController,
-            movieList = movieList
-        )
+                .fillMaxWidth(),
+            color = Color.Black
+        ) {
+            TitleStrip(name = sectionTitle)
+        }
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth(),
+            color = Color.Black
+        ) {
+            MovieRow(
+                navController = navController,
+                movieList = movieList
+            )
+        }
+        Spacer(modifier = Modifier.height(12.dp))
     }
 
 }
