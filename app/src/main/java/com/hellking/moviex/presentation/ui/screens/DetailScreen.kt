@@ -1,17 +1,23 @@
 package com.hellking.moviex.presentation.ui.screens
 
 import android.util.Log
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.hellking.moviex.domain.models.MovieDetailUser
 import com.hellking.moviex.presentation.viewModels.MoviezViewModel
 import com.hellking.moviex.utils.Resource
@@ -62,6 +68,43 @@ fun DetailScreen(
     }
 }
 
+
+@ExperimentalCoilApi
+@Composable
+fun DetailScreenTopLayout(
+    movieDetail: MovieDetailUser,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = Modifier
+            .height(500.dp)
+            .fillMaxWidth()
+    ) {
+        val painter = rememberImagePainter(data = movieDetail.largeCoverImage)
+        val desc = movieDetail.titleEng + " Poster"
+        Image(
+            modifier = modifier.fillMaxWidth(),
+            painter = painter,
+            contentDescription = desc,
+            contentScale = ContentScale.Crop
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color.Transparent,
+                            Color.Black
+                        ),
+                        startY = 900f
+                    )
+                )
+        )
+    }
+}
+
+@ExperimentalCoilApi
 @Composable
 fun DetailScreenSuccess(
     navController: NavController,
@@ -69,6 +112,7 @@ fun DetailScreenSuccess(
     movieDetail: MovieDetailUser
 ) {
     Column {
+        DetailScreenTopLayout(movieDetail = movieDetail)
         Text(text = movieDetail.titleEng)
         Spacer(modifier = Modifier.height(10.dp))
         Text(text = movieDetail.descriptionFull)
