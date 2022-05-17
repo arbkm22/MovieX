@@ -1,6 +1,7 @@
 package com.hellking.moviex.presentation.ui.screens
 
 import android.util.Log
+import android.widget.Space
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -19,6 +20,7 @@ import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.hellking.moviex.domain.models.MovieDetailUser
+import com.hellking.moviex.presentation.components.GenreChipGroup
 import com.hellking.moviex.presentation.viewModels.MoviezViewModel
 import com.hellking.moviex.utils.Resource
 
@@ -77,7 +79,7 @@ fun DetailScreenTopLayout(
 ) {
     Box(
         modifier = Modifier
-            .height(500.dp)
+            .height(600.dp)
             .fillMaxWidth()
     ) {
         val painter = rememberImagePainter(data = movieDetail.largeCoverImage)
@@ -113,6 +115,8 @@ fun DetailScreenSuccess(
 ) {
     Column {
         DetailScreenTopLayout(movieDetail = movieDetail)
+        Spacer(modifier = Modifier.height(3.dp))
+        GenreChipGroup(movieDetail = movieDetail)
         Text(text = movieDetail.titleEng)
         Spacer(modifier = Modifier.height(10.dp))
         Text(text = movieDetail.descriptionFull)
