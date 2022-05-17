@@ -1,15 +1,19 @@
 package com.hellking.moviex.presentation.components
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import coil.annotation.ExperimentalCoilApi
 import com.hellking.moviex.presentation.ui.screens.DetailScreen
 import com.hellking.moviex.presentation.ui.screens.HomeScreen
 import com.hellking.moviex.presentation.viewModels.MoviezViewModel
 
+@ExperimentalCoilApi
+@ExperimentalMaterialApi
 @Composable
 fun NavGraph(
     navController: NavHostController,
