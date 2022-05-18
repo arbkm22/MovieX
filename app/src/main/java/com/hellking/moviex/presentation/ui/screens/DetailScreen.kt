@@ -2,20 +2,23 @@ package com.hellking.moviex.presentation.ui.screens
 
 import android.util.Log
 import android.widget.Space
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
@@ -24,6 +27,7 @@ import com.hellking.moviex.presentation.components.GenreChipGroup
 import com.hellking.moviex.presentation.viewModels.MoviezViewModel
 import com.hellking.moviex.utils.Resource
 
+@ExperimentalCoilApi
 @Composable
 fun DetailScreen(
     navController: NavController,
@@ -106,6 +110,62 @@ fun DetailScreenTopLayout(
     }
 }
 
+private const val MINIMIZED_MAX_LINES = 2
+
+@Composable
+fun TitleDesc(
+    movieDetail: MovieDetailUser
+) {
+    var isExpanded by remember { mutableStateOf(false) }
+    val textLayoutResultState = remember { mutableStateOf<TextLayoutResult?>(null) }
+    var isClickable by remember { mutableStateOf(false) }
+    var finalText by remember { mutableStateOf(movieDetail.descriptionFull) }
+
+    val textLayoutResult = textLayoutResultState.value
+    LaunchedEffect(textLayoutResult) {
+        if (textLayoutResult == null) return@LaunchedEffect
+    }
+
+    if (textLayoutResult != null) {
+        when {
+            isExpanded -> {
+                finalText = "${movieDetail.descriptionFull} Show Less"
+            }
+            !isExpanded && textLayoutResult.hasVisualOverflow -> {
+                val lastCharIndex = textLayoutResult.getLineEnd(MINIMIZED_MAX_LINES - 1)
+                val showMoreString = "... Show More"
+                val adjustedText = movieDetail.descriptionFull
+                    .substring(startIndex = 0, endIndex = lastCharIndex)
+                    .dropLast(showMoreString.length)
+                    .dropLastWhile { it == ' ' || it == '.' }
+                finalText = "$adjustedText$showMoreString"
+
+                isClickable = true
+            }
+        }
+    }
+
+    Text(
+        text = movieDetail.titleEng,
+        fontSize = 28.sp,
+        color = Color.White,
+        modifier = Modifier.padding(horizontal = 8.dp)
+    )
+    Spacer(modifier = Modifier.height(4.dp))
+    Text(
+        text = finalText,
+        fontSize = 16.sp,
+        overflow = TextOverflow.Clip,
+        maxLines = if (isExpanded) Int.MAX_VALUE else MINIMIZED_MAX_LINES,
+        onTextLayout = {textLayoutResultState.value = it},
+        modifier = Modifier
+            .clickable(enabled = isClickable) { isExpanded = !isExpanded }
+            .animateContentSize()
+            .padding(horizontal = 8.dp)
+    )
+}
+
+
 @ExperimentalCoilApi
 @Composable
 fun DetailScreenSuccess(
@@ -117,8 +177,6 @@ fun DetailScreenSuccess(
         DetailScreenTopLayout(movieDetail = movieDetail)
         Spacer(modifier = Modifier.height(3.dp))
         GenreChipGroup(movieDetail = movieDetail)
-        Text(text = movieDetail.titleEng)
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(text = movieDetail.descriptionFull)
+        TitleDesc(movieDetail = movieDetail)
     }
 }
