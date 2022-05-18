@@ -39,12 +39,12 @@ fun GenreChip(
 fun GenreChipGroup(
     movieDetail: MovieDetailUser
 ) {
-    Column {
-        LazyRow {
-            movieDetail.genres.forEach() { genre ->
-                item {
-                    GenreChip(genre = genre)
-                }
+    LazyRow(
+        modifier = Modifier.padding(start = 10.dp)
+    ) {
+        movieDetail.genres.forEach() { genre ->
+            item {
+                GenreChip(genre = genre)
             }
         }
     }

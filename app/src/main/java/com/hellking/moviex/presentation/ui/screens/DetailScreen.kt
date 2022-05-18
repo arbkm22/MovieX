@@ -15,8 +15,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -129,7 +133,7 @@ fun TitleDesc(
     if (textLayoutResult != null) {
         when {
             isExpanded -> {
-                finalText = "${movieDetail.descriptionFull} Show Less"
+                finalText = movieDetail.descriptionFull
             }
             !isExpanded && textLayoutResult.hasVisualOverflow -> {
                 val lastCharIndex = textLayoutResult.getLineEnd(MINIMIZED_MAX_LINES - 1)
@@ -138,7 +142,7 @@ fun TitleDesc(
                     .substring(startIndex = 0, endIndex = lastCharIndex)
                     .dropLast(showMoreString.length)
                     .dropLastWhile { it == ' ' || it == '.' }
-                finalText = "$adjustedText$showMoreString"
+                finalText = adjustedText
 
                 isClickable = true
             }
@@ -149,7 +153,7 @@ fun TitleDesc(
         text = movieDetail.titleEng,
         fontSize = 28.sp,
         color = Color.White,
-        modifier = Modifier.padding(horizontal = 8.dp)
+        modifier = Modifier.padding(horizontal = 16.dp)
     )
     Spacer(modifier = Modifier.height(4.dp))
     Text(
@@ -161,7 +165,7 @@ fun TitleDesc(
         modifier = Modifier
             .clickable(enabled = isClickable) { isExpanded = !isExpanded }
             .animateContentSize()
-            .padding(horizontal = 8.dp)
+            .padding(horizontal = 16.dp)
     )
 }
 
@@ -173,7 +177,9 @@ fun DetailScreenSuccess(
     moviezViewModel: MoviezViewModel,
     movieDetail: MovieDetailUser
 ) {
-    Column {
+    Column(
+        modifier = Modifier.background(Color.Black)
+    ) {
         DetailScreenTopLayout(movieDetail = movieDetail)
         Spacer(modifier = Modifier.height(3.dp))
         GenreChipGroup(movieDetail = movieDetail)
