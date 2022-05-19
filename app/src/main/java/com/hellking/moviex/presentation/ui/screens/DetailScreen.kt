@@ -1,5 +1,7 @@
 package com.hellking.moviex.presentation.ui.screens
 
+import android.os.Build
+import android.text.Html
 import android.util.Log
 import android.widget.Space
 import androidx.compose.animation.animateContentSize
@@ -121,10 +123,16 @@ private const val MINIMIZED_MAX_LINES = 2
 fun TitleDesc(
     movieDetail: MovieDetailUser
 ) {
+    var desc = movieDetail.descriptionFull
+    desc = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        Html.fromHtml(desc, Html.FROM_HTML_MODE_LEGACY).toString()
+    } else {
+        Html.fromHtml(desc).toString()
+    }
     var isExpanded by remember { mutableStateOf(false) }
     val textLayoutResultState = remember { mutableStateOf<TextLayoutResult?>(null) }
     var isClickable by remember { mutableStateOf(false) }
-    var finalText by remember { mutableStateOf(movieDetail.descriptionFull) }
+    var finalText by remember { mutableStateOf(desc) }
 
     val textLayoutResult = textLayoutResultState.value
     LaunchedEffect(textLayoutResult) {
@@ -134,12 +142,12 @@ fun TitleDesc(
     if (textLayoutResult != null) {
         when {
             isExpanded -> {
-                finalText = movieDetail.descriptionFull
+                finalText = desc
             }
             !isExpanded && textLayoutResult.hasVisualOverflow -> {
                 val lastCharIndex = textLayoutResult.getLineEnd(MINIMIZED_MAX_LINES - 1)
                 val showMoreString = "... Show More"
-                val adjustedText = movieDetail.descriptionFull
+                val adjustedText = desc
                     .substring(startIndex = 0, endIndex = lastCharIndex)
                     .dropLast(showMoreString.length)
                     .dropLastWhile { it == ' ' || it == '.' }
