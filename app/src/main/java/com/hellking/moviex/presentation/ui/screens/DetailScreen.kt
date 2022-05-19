@@ -157,11 +157,19 @@ fun TitleDesc(
     )
     Spacer(modifier = Modifier.height(4.dp))
     Text(
-        text = finalText,
-        fontSize = 16.sp,
-        overflow = TextOverflow.Clip,
+        text = buildAnnotatedString {
+            append(finalText)
+            withStyle(
+                style = SpanStyle(
+                    color = Color.Red,
+                    fontSize = 14.sp
+                )
+            ) {
+                if (isExpanded) append(" Show Less") else append(" ...Show More")
+            }
+        },
         maxLines = if (isExpanded) Int.MAX_VALUE else MINIMIZED_MAX_LINES,
-        onTextLayout = {textLayoutResultState.value = it},
+        onTextLayout = { textLayoutResultState.value = it },
         modifier = Modifier
             .clickable(enabled = isClickable) { isExpanded = !isExpanded }
             .animateContentSize()
