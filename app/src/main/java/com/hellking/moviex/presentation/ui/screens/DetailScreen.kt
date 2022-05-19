@@ -7,6 +7,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -185,12 +186,17 @@ fun DetailScreenSuccess(
     moviezViewModel: MoviezViewModel,
     movieDetail: MovieDetailUser
 ) {
-    Column(
+    LazyColumn(
         modifier = Modifier.background(Color.Black)
     ) {
-        DetailScreenTopLayout(movieDetail = movieDetail)
-        Spacer(modifier = Modifier.height(3.dp))
-        GenreChipGroup(movieDetail = movieDetail)
-        TitleDesc(movieDetail = movieDetail)
+        item {
+            DetailScreenTopLayout(movieDetail = movieDetail)
+        }
+        item {
+            GenreChipGroup(movieDetail = movieDetail)
+        }
+        item {
+            TitleDesc(movieDetail = movieDetail)
+        }
     }
 }
