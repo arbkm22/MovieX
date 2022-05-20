@@ -30,6 +30,7 @@ import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.hellking.moviex.domain.models.MovieDetailUser
+import com.hellking.moviex.presentation.components.CastRow
 import com.hellking.moviex.presentation.components.GenreChipGroup
 import com.hellking.moviex.presentation.viewModels.MoviezViewModel
 import com.hellking.moviex.utils.Resource
@@ -205,6 +206,9 @@ fun DetailScreenSuccess(
         }
         item {
             TitleDesc(movieDetail = movieDetail)
+        }
+        item { 
+            CastRow(movieDetail = movieDetail)
         }
     }
 }

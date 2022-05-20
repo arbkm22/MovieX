@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,7 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
+import coil.compose.AsyncImage
 import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
 import com.hellking.moviex.presentation.viewModels.MoviezViewModel
 
 @ExperimentalCoilApi
@@ -43,6 +46,13 @@ fun MovieCard(
             .height(260.dp),
         shape = RoundedCornerShape(11.dp)
     ) {
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(mci)
+                .crossfade(true)
+                .build(),
+            contentDescription = "$title's Poster"
+        )/*
         val painter = rememberImagePainter(
             data = mci,
             builder = {
@@ -52,7 +62,7 @@ fun MovieCard(
         Image(
             painter = painter,
             contentDescription = "image"
-        ) /*
+        ) *//*
         Column(
             modifier = Modifier
                 .fillMaxWidth(1f)
