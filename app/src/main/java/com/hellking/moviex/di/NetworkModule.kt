@@ -26,4 +26,8 @@ object NetworkModule {
             .build()
             .create(YtsService::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun providesTmdbServices():
 }
