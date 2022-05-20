@@ -1,7 +1,9 @@
 package com.hellking.moviex.di
 
+import com.hellking.moviex.networks.services.TmdbService
 import com.hellking.moviex.networks.services.YtsService
 import com.hellking.moviex.utils.BASE_URL
+import com.hellking.moviex.utils.TMDB_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,5 +31,12 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun providesTmdbServices():
+    fun providesTmdbServices(): TmdbService {
+        return Retrofit.Builder()
+            .baseUrl(TMDB_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(OkHttpClient.Builder().build())
+            .build()
+            .create(TmdbService::class.java)
+    }
 }
