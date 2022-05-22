@@ -19,7 +19,7 @@ fun GenreChip(
     Surface(
         modifier = Modifier.padding(6.dp),
         elevation = 8.dp,
-        shape = RoundedCornerShape(24.dp),
+        shape = RoundedCornerShape(18.dp),
         color = Color.DarkGray
     ) {
         Row {
