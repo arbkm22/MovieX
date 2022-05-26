@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLayoutResult
@@ -28,7 +29,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
+import coil.compose.AsyncImage
 import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
 import com.hellking.moviex.domain.models.MovieDetailUser
 import com.hellking.moviex.presentation.components.CastRow
 import com.hellking.moviex.presentation.components.GenreChipGroup
@@ -94,13 +97,20 @@ fun DetailScreenTopLayout(
             .height(600.dp)
             .fillMaxWidth()
     ) {
-        val painter = rememberImagePainter(data = movieDetail.largeCoverImage)
-        val desc = movieDetail.titleEng + " Poster"
-        Image(
-            modifier = modifier.fillMaxWidth(),
-            painter = painter,
-            contentDescription = desc,
-            contentScale = ContentScale.Crop
+//        val painter = rememberImagePainter(data = movieDetail.largeCoverImage)
+//        val desc = movieDetail.titleEng + " Poster"
+//        Image(
+//            modifier = modifier.fillMaxWidth(),
+//            painter = painter,
+//            contentDescription = desc,
+//            contentScale = ContentScale.Crop
+//        )
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(movieDetail.largeCoverImage)
+                .crossfade(false)
+                .build(),
+            contentDescription = movieDetail.titleEng + " Poster"
         )
         Box(
             modifier = Modifier

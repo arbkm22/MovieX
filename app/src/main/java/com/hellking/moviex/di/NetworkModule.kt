@@ -3,6 +3,7 @@ package com.hellking.moviex.di
 import com.hellking.moviex.networks.services.TmdbService
 import com.hellking.moviex.networks.services.YtsService
 import com.hellking.moviex.utils.BASE_URL
+import com.hellking.moviex.utils.BASE_URL2
 import com.hellking.moviex.utils.TMDB_URL
 import dagger.Module
 import dagger.Provides
@@ -20,7 +21,7 @@ object NetworkModule {
     @Provides
     fun providesYtsServices(): YtsService {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(BASE_URL2)
             .addConverterFactory(GsonConverterFactory.create())
             .client(
                 OkHttpClient.Builder().build()
